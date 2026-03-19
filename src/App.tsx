@@ -426,9 +426,9 @@ const Process = () => {
 
 const Testimonials = () => {
   const feedbacks = [
-    { name: "Ricardo Silva", role: "CEO na TechSolutions", text: "A Sky Web entregou uma landing page que triplicou nossa taxa de conversão em apenas um mês. O design é impecável.", rating: 5 },
-    { name: "Mariana Costa", role: "Marketing Manager", text: "Profissionalismo do início ao fim. O site ficou rápido e exatamente como imaginamos. Recomendo muito!", rating: 5 },
-    { name: "André Santos", role: "Fundador da FitLife", text: "Excelente trabalho de SEO. Hoje estamos na primeira página do Google para nossas principais palavras-chave.", rating: 5 }
+    { name: "Ricardo Silva", text: "A Sky Web entregou uma landing page que triplicou nossa taxa de conversão em apenas um mês. O design é impecável.", rating: 5 },
+    { name: "Mariana Costa", text: "Profissionalismo do início ao fim. O site ficou rápido e exatamente como imaginamos. Recomendo muito!", rating: 5 },
+    { name: "André Santos", text: "Excelente trabalho de SEO. Hoje estamos na primeira página do Google para nossas principais palavras-chave.", rating: 5 }
   ];
 
   return (
@@ -439,24 +439,37 @@ const Testimonials = () => {
           <p className="text-slate-400">A satisfação de quem já confiou na Sky Web.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
           {feedbacks.map((f, i) => (
-            <div key={i} className="glass p-10 rounded-3xl relative">
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="glass p-10 rounded-3xl relative flex flex-col h-full"
+            >
               <Quote className="absolute top-8 right-8 text-sky-primary/20" size={40} />
+              
               <div className="flex gap-1 mb-6">
-                {[...Array(f.rating)].map((_, i) => <Star key={i} size={16} className="fill-sky-primary text-sky-primary" />)}
+                {[...Array(f.rating)].map((_, i) => (
+                  <Star key={i} size={16} className="fill-sky-primary text-sky-primary" />
+                ))}
               </div>
-              <p className="text-lg text-slate-300 italic mb-8 leading-relaxed">"{f.text}"</p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-sky-primary/20 flex items-center justify-center font-bold text-sky-primary">
+
+              <p className="text-lg text-slate-300 italic mb-8 leading-relaxed flex-grow">
+                "{f.text}"
+              </p>
+
+              <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                <div className="w-12 h-12 rounded-full bg-sky-primary/20 flex items-center justify-center font-bold text-sky-primary shrink-0">
                   {f.name[0]}
                 </div>
                 <div>
                   <div className="font-bold text-white">{f.name}</div>
-                  <div className="text-sm text-slate-500">{f.role}</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
