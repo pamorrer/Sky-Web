@@ -329,12 +329,12 @@ const Differentials = () => {
 
 const Portfolio = () => {
   const projects = [
-    { title: "E-commerce Premium", category: "Site Profissional", img: "https://picsum.photos/seed/shop/600/400" },
-    { title: "SaaS Dashboard", category: "Landing Page", img: "https://picsum.photos/seed/app/600/400" },
-    { title: "Agência de Viagens", category: "Site Institucional", img: "https://picsum.photos/seed/travel/600/400" },
-    { title: "Clínica Estética", category: "Landing Page", img: "https://picsum.photos/seed/beauty/600/400" },
-    { title: "Consultoria Financeira", category: "Site Profissional", img: "https://picsum.photos/seed/finance/600/400" },
-    { title: "App de Delivery", category: "Landing Page", img: "https://picsum.photos/seed/food/600/400" }
+    { title: "E-commerce Premium", category: "Site Profissional", img: "https://picsum.photos/seed/shop/600/400", url: "#" },
+    { title: "SaaS Dashboard", category: "Landing Page", img: "https://picsum.photos/seed/app/600/400", url: "#" },
+    { title: "Agência de Viagens", category: "Site Institucional", img: "https://picsum.photos/seed/travel/600/400", url: "#" },
+    { title: "Clínica Estética", category: "Landing Page", img: "https://picsum.photos/seed/beauty/600/400", url: "#" },
+    { title: "Consultoria Financeira", category: "Site Profissional", img: "https://picsum.photos/seed/finance/600/400", url: "#" },
+    { title: "Restaurantes e Delivery", category: "Site Profissional", img: "https://lh3.googleusercontent.com/d/1T01GJgq1wejo9FYPQOGDUDPfRjgtCQ-q", url: "https://pizzaria-belissima-saz8.vercel.app/" }
   ];
 
   return (
@@ -352,10 +352,14 @@ const Portfolio = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, i) => (
-            <motion.div
+            <motion.a
               key={i}
-              whileHover={{ y: -10 }}
-              className="group cursor-pointer"
+              href={project.url}
+              target={project.url !== "#" ? "_blank" : undefined}
+              rel={project.url !== "#" ? "noopener noreferrer" : undefined}
+              whileHover={{ y: -10, scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="group cursor-pointer block"
             >
               <div className="relative overflow-hidden rounded-3xl aspect-[4/3] mb-6">
                 <img 
@@ -373,7 +377,7 @@ const Portfolio = () => {
               </div>
               <h3 className="text-xl font-bold text-white group-hover:text-sky-primary transition-colors">{project.title}</h3>
               <p className="text-slate-500">{project.category}</p>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>
