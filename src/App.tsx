@@ -18,9 +18,11 @@ import {
   MessageSquare,
   ChevronRight,
   Star,
-  Quote
+  Quote,
+  Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 // --- Components ---
 
@@ -534,7 +536,7 @@ const Contact = () => {
               {/* FormSubmit Config */}
               <input type="hidden" name="_subject" value="Novo lead - Sky Web" />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://ais-dev-hruseuuc5a23lw5amsrweu-385009832344.us-east1.run.app/obrigado" />
+              <input type="hidden" name="_next" value={typeof window !== 'undefined' ? `${window.location.origin}/obrigado` : ''} />
 
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-400 ml-1">Nome Completo</label>
@@ -625,9 +627,69 @@ const Footer = () => {
   );
 };
 
-// --- Main App ---
+const ThankYou = () => {
+  return (
+    <section className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-primary/10 rounded-full blur-[120px] -z-10" />
+      
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-2xl w-full text-center z-10"
+      >
+        <motion.div 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+          className="w-24 h-24 bg-sky-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 border border-sky-primary/30"
+        >
+          <Check className="text-sky-primary" size={48} />
+        </motion.div>
 
-export default function App() {
+        <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight">
+          Mensagem enviada com <span className="text-sky-primary">sucesso!</span>
+        </h1>
+        
+        <p className="text-xl text-slate-400 mb-8 leading-relaxed">
+          Recebemos seu contato e em breve entraremos em contato com você.
+        </p>
+
+        <div className="p-6 glass rounded-3xl border border-white/10 mb-10">
+          <p className="text-slate-300 italic">
+            "Enquanto isso, você pode falar diretamente conosco para acelerar seu projeto."
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <motion.a 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            href="https://wa.me/5511999999999" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="px-8 py-4 bg-sky-primary hover:bg-sky-accent text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-sky-primary/30 flex items-center justify-center gap-2"
+          >
+            <MessageSquare size={20} />
+            Falar no WhatsApp
+          </motion.a>
+          
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link 
+              to="/" 
+              className="px-8 py-4 border border-sky-primary text-sky-primary hover:bg-sky-primary/10 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2"
+            >
+              Voltar para o site
+            </Link>
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+const MainContent = () => {
   return (
     <div className="relative">
       <Navbar />
@@ -651,5 +713,18 @@ export default function App() {
         <MessageSquare size={32} />
       </a>
     </div>
+  );
+};
+
+// --- Main App ---
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/obrigado" element={<ThankYou />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
