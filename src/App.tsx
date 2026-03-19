@@ -107,12 +107,32 @@ const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = true;
-      videoRef.current.play().catch((error) => {
-        console.log("Autoplay bloqueado pelo navegador:", error);
-      });
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+
+    const tryPlay = () => {
+      if (video) {
+        video.play().catch(() => {});
+      }
+    };
+
+    // Tenta autoplay direto
+    tryPlay();
+
+    // Força após primeira interação do usuário
+    const handleInteraction = () => {
+      tryPlay();
+    };
+
+    document.addEventListener("touchstart", handleInteraction, { once: true });
+    document.addEventListener("click", handleInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("click", handleInteraction);
+    };
   }, []);
 
   return (
@@ -126,7 +146,7 @@ const Hero = () => {
           loop 
           playsInline 
           webkit-playsinline="true"
-          className="block absolute inset-0 w-full h-full object-cover"
+          className="video-bg block absolute inset-0 w-full h-full object-cover"
         >
           <source src="https://res.cloudinary.com/djwp1njjr/video/upload/v1773929897/3129957-uhd_3840_2160_25fps_2_tap5rq.mp4" type="video/mp4" />
         </video>
