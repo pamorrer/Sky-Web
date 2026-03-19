@@ -463,59 +463,137 @@ const Testimonials = () => {
 };
 
 const Contact = () => {
+  const [phone, setPhone] = useState('');
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    
+    if (value.length > 10) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else if (value.length > 5) {
+      value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+    } else if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
+    } else if (value.length > 0) {
+      value = value.replace(/^(\d*)/, '($1');
+    }
+    setPhone(value);
+  };
+
   return (
-    <section id="contato" className="py-32 relative overflow-hidden bg-[#0A0A0A]">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sky-primary/5 rounded-full blur-[120px] -z-10" />
+    <section id="contato" className="py-32 relative overflow-hidden bg-black">
+      {/* Decorative background element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sky-primary/10 rounded-full blur-[120px] -z-10" />
       
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-20">
-          <div>
-            <h2 className="text-4xl lg:text-6xl font-display font-bold text-white mb-8">Pronto para ter um site que <span className="text-gradient">realmente vende?</span></h2>
-            <p className="text-xl text-slate-400 mb-12">Não perca mais tempo com sites amadores. Vamos construir a presença digital que sua empresa merece.</p>
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl lg:text-6xl font-display font-bold text-white mb-8 leading-tight">
+              Pronto para ter um site que <span className="text-sky-primary">realmente vende?</span>
+            </h2>
+            <p className="text-xl text-slate-400 mb-12 leading-relaxed">
+              Não perca mais tempo com sites amadores. Vamos construir a presença digital que sua empresa merece.
+            </p>
             
-            <div className="space-y-6">
-              <div className="flex items-center gap-4 text-slate-300">
-                <div className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-sky-primary">
-                  <MessageSquare size={24} />
+            <div className="space-y-8">
+              <div className="flex items-center gap-5 text-slate-300 group">
+                <div className="w-14 h-14 glass rounded-2xl flex items-center justify-center text-sky-primary group-hover:scale-110 transition-transform duration-300">
+                  <MessageSquare size={28} />
                 </div>
                 <div>
-                  <div className="text-sm text-slate-500 uppercase tracking-widest font-bold">WhatsApp</div>
-                  <div className="text-lg font-bold">+55 (11) 99999-9999</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-[0.2em] font-bold mb-1">WhatsApp</div>
+                  <div className="text-xl font-bold text-white">+55 (11) 99999-9999</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-slate-300">
-                <div className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-sky-primary">
-                  <Instagram size={24} />
+              <div className="flex items-center gap-5 text-slate-300 group">
+                <div className="w-14 h-14 glass rounded-2xl flex items-center justify-center text-sky-primary group-hover:scale-110 transition-transform duration-300">
+                  <Instagram size={28} />
                 </div>
                 <div>
-                  <div className="text-sm text-slate-500 uppercase tracking-widest font-bold">Instagram</div>
-                  <div className="text-lg font-bold">@skyweb.digital</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-[0.2em] font-bold mb-1">Instagram</div>
+                  <div className="text-xl font-bold text-white">@skyweb.digital</div>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="glass p-10 rounded-3xl">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="glass p-8 md:p-12 rounded-[2rem] border border-white/10 shadow-2xl relative z-10"
+          >
+            <form action="https://formsubmit.co/skyweb.contato@gmail.com" method="POST" className="space-y-6">
+              {/* FormSubmit Config */}
+              <input type="hidden" name="_subject" value="Novo lead - Sky Web" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://ais-dev-hruseuuc5a23lw5amsrweu-385009832344.us-east1.run.app/obrigado" />
+
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-400 ml-1">Nome Completo</label>
+                <input 
+                  type="text" 
+                  name="nome"
+                  required
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-sky-primary focus:ring-1 focus:ring-sky-primary outline-none transition-all hover:bg-white/10" 
+                  placeholder="Seu nome" 
+                />
+              </div>
+              
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-400">Nome Completo</label>
-                  <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-sky-primary outline-none transition-all" placeholder="Seu nome" />
+                  <label className="text-sm font-bold text-slate-400 ml-1">E-mail</label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    required
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-sky-primary focus:ring-1 focus:ring-sky-primary outline-none transition-all hover:bg-white/10" 
+                    placeholder="seu@email.com" 
+                  />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-400">E-mail Corporativo</label>
-                  <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-sky-primary outline-none transition-all" placeholder="seu@email.com" />
+                  <label className="text-sm font-bold text-slate-400 ml-1">Telefone</label>
+                  <input 
+                    type="tel" 
+                    name="telefone"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    required
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-sky-primary focus:ring-1 focus:ring-sky-primary outline-none transition-all hover:bg-white/10" 
+                    placeholder="(11) 99999-9999" 
+                  />
                 </div>
               </div>
+
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-400">Mensagem</label>
-                <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-sky-primary outline-none transition-all" placeholder="Conte-nos sobre seu projeto..."></textarea>
+                <label className="text-sm font-bold text-slate-400 ml-1">Mensagem</label>
+                <textarea 
+                  name="mensagem"
+                  required
+                  rows={4} 
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-sky-primary focus:ring-1 focus:ring-sky-primary outline-none transition-all hover:bg-white/10 resize-none" 
+                  placeholder="Conte-nos sobre seu projeto..."
+                ></textarea>
               </div>
-              <button className="w-full py-4 bg-sky-primary hover:bg-sky-accent text-white rounded-xl font-bold text-lg transition-all shadow-xl shadow-sky-primary/20">
+
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full py-5 bg-sky-primary hover:bg-sky-accent text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-sky-primary/30 flex items-center justify-center gap-2"
+              >
                 Enviar Mensagem
-              </button>
+                <ArrowRight size={20} />
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
