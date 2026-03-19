@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-sky-primary: #00AEEF;
+  --color-sky-dark: #0A0A0A;
+  --color-sky-alt: #111111;
+  --color-sky-accent: #38bdf8;
+
+  --animation-marquee: marquee 25s linear infinite;
+  --animation-marquee-slow: marquee 40s linear infinite;
+
+  --animation-sky-marquee: sky-marquee-scroll 20s linear infinite;
+
+  @keyframes sky-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer components {
+  .sky-marquee-container {
+    @apply w-full h-[50px] overflow-hidden flex items-center bg-white/5 backdrop-blur-[10px] border-y border-white/5;
+  }
+
+  .sky-marquee-track {
+    @apply flex w-max whitespace-nowrap animate-[sky-marquee-scroll_20s_linear_infinite];
+  }
+
+  .sky-marquee-container:hover .sky-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .sky-marquee-group {
+    @apply flex gap-[50px] px-[25px];
+  }
+
+  .sky-marquee-group span {
+    @apply text-white/80 text-[13px] tracking-[2px] font-display uppercase;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-[#0A0A0A] text-slate-200 font-sans antialiased selection:bg-sky-primary/30 selection:text-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-primary to-blue-500;
+}
