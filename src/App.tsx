@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Monitor, 
   Zap, 
@@ -104,16 +104,29 @@ const Navbar = () => {
 };
 
 const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch((error) => {
+        console.log("Autoplay bloqueado pelo navegador:", error);
+      });
+    }
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
-      <div className="absolute inset-0 w-full h-full -z-10">
+      <div className="absolute inset-0 w-full h-full -z-10 bg-black">
         <video 
+          ref={videoRef}
           autoPlay 
           muted 
           loop 
           playsInline 
-          className="w-full h-full object-cover"
+          webkit-playsinline="true"
+          className="block absolute inset-0 w-full h-full object-cover"
         >
           <source src="https://res.cloudinary.com/djwp1njjr/video/upload/v1773929897/3129957-uhd_3840_2160_25fps_2_tap5rq.mp4" type="video/mp4" />
         </video>
