@@ -137,8 +137,11 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0 w-full h-full -z-10 bg-black">
+      {/* Background Media */}
+      <div 
+        className="absolute inset-0 w-full h-full -z-10 bg-black bg-cover bg-center md:bg-none"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1920')" }}
+      >
         <video 
           ref={videoRef}
           autoPlay 
@@ -146,12 +149,12 @@ const Hero = () => {
           loop 
           playsInline 
           webkit-playsinline="true"
-          className="video-bg block absolute inset-0 w-full h-full object-cover"
+          className="video-bg hidden md:block absolute inset-0 w-full h-full object-cover"
         >
           <source src="https://res.cloudinary.com/djwp1njjr/video/upload/v1773929897/3129957-uhd_3840_2160_25fps_2_tap5rq.mp4" type="video/mp4" />
         </video>
         {/* Dark Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80" />
       </div>
 
       <div className="max-w-4xl mx-auto px-6 text-center z-10">
