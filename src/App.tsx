@@ -39,7 +39,6 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Serviços', href: '#servicos' },
     { name: 'Diferenciais', href: '#diferenciais' },
-    { name: 'Portfólio', href: '#portfolio' },
     { name: 'Processo', href: '#processo' },
     { name: 'Depoimentos', href: '#depoimentos' },
   ];
@@ -323,64 +322,6 @@ const Differentials = () => {
           <div className="absolute bottom-10 left-0 glass p-4 rounded-2xl shadow-xl">
             <div className="text-sky-primary font-bold">SEO Rank #1</div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Portfolio = () => {
-  const projects = [
-    { title: "E-commerce Premium", category: "Site Profissional", img: "https://picsum.photos/seed/shop/600/400", url: "#" },
-    { title: "SaaS Dashboard", category: "Landing Page", img: "https://picsum.photos/seed/app/600/400", url: "#" },
-    { title: "Agência de Viagens", category: "Site Institucional", img: "https://picsum.photos/seed/travel/600/400", url: "#" },
-    { title: "Clínica Estética", category: "Landing Page", img: "https://picsum.photos/seed/beauty/600/400", url: "#" },
-    { title: "Consultoria Financeira", category: "Site Profissional", img: "https://picsum.photos/seed/finance/600/400", url: "#" },
-    { title: "Restaurantes e Delivery", category: "Site Profissional", img: "https://lh3.googleusercontent.com/d/1T01GJgq1wejo9FYPQOGDUDPfRjgtCQ-q", url: "https://pizzaria-belissima-saz8.vercel.app/" }
-  ];
-
-  return (
-    <section id="portfolio" className="py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div>
-            <h2 className="text-4xl lg:text-5xl font-display font-bold text-white mb-4">Nosso Portfólio</h2>
-            <p className="text-slate-400">Conheça alguns dos projetos que transformaram negócios.</p>
-          </div>
-          <a href="#contato" className="text-sky-primary font-bold flex items-center gap-2 hover:underline">
-            Ver todos os projetos <ChevronRight size={20} />
-          </a>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, i) => (
-            <motion.a
-              key={i}
-              href={project.url}
-              target={project.url !== "#" ? "_blank" : undefined}
-              rel={project.url !== "#" ? "noopener noreferrer" : undefined}
-              whileHover={{ y: -10, scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="group cursor-pointer block"
-            >
-              <div className="relative overflow-hidden rounded-3xl aspect-[4/3] mb-6">
-                <img 
-                  src={project.img} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                  alt={project.title}
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-sky-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
-                  <div className="text-white">
-                    <div className="text-sm font-medium text-sky-primary mb-1">{project.category}</div>
-                    <div className="text-xl font-bold">{project.title}</div>
-                  </div>
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-white group-hover:text-sky-primary transition-colors">{project.title}</h3>
-              <p className="text-slate-500">{project.category}</p>
-            </motion.a>
-          ))}
         </div>
       </div>
     </section>
@@ -710,7 +651,6 @@ const MainContent = () => {
       <AuthorityMarquee />
       <Services />
       <Differentials />
-      <Portfolio />
       <Process />
       <Testimonials />
       <Contact />
