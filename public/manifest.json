@@ -1,0 +1,8 @@
+{
+  "short_name": "Sky Web",
+  "name": "Sky Web - Sites e Landing Pages Profissionais",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0ea5e9",
+  "background_color": "#000000"
+}
